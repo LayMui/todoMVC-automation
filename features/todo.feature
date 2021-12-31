@@ -10,8 +10,9 @@ Feature: Todo
 @test
   Scenario: Able to add list of things to do
     When she add the item to be done
-    | item        |
-    | pack lunch  |
+    | item             |
+    | pack lunch       |
+    | shop for iphone  |
     Then she is the item added
   
 

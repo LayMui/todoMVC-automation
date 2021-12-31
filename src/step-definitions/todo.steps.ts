@@ -25,8 +25,11 @@ Given(
 When(
   '{pronoun} add the item to be done',
   async (actor: Actor, table: DataTable) => {
-    const item = table.hashes()[0].item
-    await actor.attemptsTo(AddItem.toList(item))
+    const item1 = table.hashes()[0].item
+    const item2 = table.hashes()[1].item
+    await actor.attemptsTo(
+    AddItem.toList(item1), 
+    AddItem.toList(item2))
   }
 )
 
