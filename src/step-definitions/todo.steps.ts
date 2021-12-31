@@ -1,7 +1,7 @@
 import 'expect-webdriverio'
 
 import { DataTable, Given, Then, When } from '@cucumber/cucumber'
-import { Actor, actorInTheSpotlight, Log } from '@serenity-js/core'
+import { Actor, actorInTheSpotlight, Log, Note, Question, TakeNote } from '@serenity-js/core'
 import { Navigate } from '@serenity-js/webdriverio'
 import { SignIn } from '../tasks/signIn'
 import { UseEmail } from '../tasks/UseEmail'
@@ -29,11 +29,23 @@ When(
     const item1 = table.hashes()[0].item
     const item2 = table.hashes()[1].item
     await actor.attemptsTo(
-    AddItem.toList(item1), 
-    AddItem.toList(item2))
+      AddItem.toList(item1),
+      AddItem.toList(item2),
+      TakeNote.of(
+        Question.about<string>(`item1`, (actor) => {
+          return item1
+        })
+      ).as('item1'),
+      
+    )
   }
 )
 
-Then('{pronoun} is the item added', async (actor: Actor) => {
-  await actor.attemptsTo(VerifyItem.intheList('pack lunch'))
+Then('{pronoun} saw the item added', async (actor: Actor) => {
+  const item1 = await Note.of('item1').answeredBy(actor)
+//  const item2 = await Note.of('item2').answeredBy(actor)
+  await actor.attemptsTo(
+    VerifyItem.intheList(`${item1}`),
+   // VerifyItem.intheList(`${item2}`)
+  )
 })

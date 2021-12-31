@@ -13,7 +13,7 @@ Feature: Todo
     | item             |
     | pack lunch       |
     | shop for iphone  |
-    Then she is the item added
+    Then she saw the item added
   
 
   
