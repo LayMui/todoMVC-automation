@@ -29,23 +29,28 @@ When(
     const item1 = table.hashes()[0].item
     const item2 = table.hashes()[1].item
     await actor.attemptsTo(
-      AddItem.toList(item1),
-      AddItem.toList(item2),
       TakeNote.of(
         Question.about<string>(`item1`, (actor) => {
           return item1
         })
       ).as('item1'),
-      
+      TakeNote.of(
+        Question.about<string>(`item2`, (actor) => {
+          return item2
+        })
+      ).as('item2'),
+
+      AddItem.toList(item1),
+      AddItem.toList(item2),
     )
   }
 )
 
 Then('{pronoun} saw the item added', async (actor: Actor) => {
   const item1 = await Note.of('item1').answeredBy(actor)
-//  const item2 = await Note.of('item2').answeredBy(actor)
+  const item2 = await Note.of('item2').answeredBy(actor)
   await actor.attemptsTo(
     VerifyItem.intheList(`${item1}`),
-   // VerifyItem.intheList(`${item2}`)
+    VerifyItem.intheList(`${item2}`)
   )
 })
