@@ -9,6 +9,7 @@ import { VerifyAccount } from '../tasks/VerifyAccount'
 import { AddItem, FillUp } from '../tasks/AddItem'
 import { registrationPage } from '../page-objects/registrationPage'
 import { Select } from '@serenity-js/web'
+import { VerifyItem } from '../tasks/VerifyItem'
 
 
 require('dotenv').config()
@@ -34,5 +35,5 @@ When(
 )
 
 Then('{pronoun} is the item added', async (actor: Actor) => {
-  await actor.attemptsTo(Log.the('TODO'))
+  await actor.attemptsTo(VerifyItem.intheList('pack lunch'))
 })

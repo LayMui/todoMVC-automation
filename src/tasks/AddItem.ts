@@ -1,5 +1,5 @@
-import { Duration, Log, Task } from '@serenity-js/core'
-import { Clear, Click, Enter, isVisible, Wait } from '@serenity-js/webdriverio'
+import { Duration, Task } from '@serenity-js/core'
+import { Clear, Enter, isVisible, Key, Press, Wait} from '@serenity-js/webdriverio'
 import { todoPage } from '../page-objects/todoPage'
 
 export const AddItem = {
@@ -11,6 +11,7 @@ export const AddItem = {
         isVisible()
       ),
       Clear.theValueOf(todoPage.inputItem()),
-      Enter.theValue(item).into(todoPage.inputItem())
+      Enter.theValue(item).into(todoPage.inputItem()),
+      Press.the(Key.Enter).in(todoPage.inputItem())
     ),
 }
