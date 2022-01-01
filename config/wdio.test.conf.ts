@@ -5,9 +5,11 @@ import { ArtifactArchiver } from '@serenity-js/core'
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd'
 import {
   Photographer,
+  TakePhotosOfFailures,
   TakePhotosOfInteractions,
-  
 } from '@serenity-js/web'
+
+import { resolve } from 'path'
 
 
 import { WebdriverIOConfig } from '@serenity-js/webdriverio'
@@ -36,8 +38,8 @@ export const config: WebdriverIOConfig = {
     // see: https://serenity-js.org/handbook/reporting/
     crew: [
       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-     // Photographer.whoWill(TakePhotosOfInteractions), // slower execution, more comprehensive reports
-      // Photographer.whoWill(TakePhotosOfFailures),      // fast execution, screenshots only when tests fail
+      Photographer.whoWill(TakePhotosOfFailures),
+      // Photographer.whoWill(TakePhotosOfInteractions),
       ConsoleReporter.forDarkTerminals(),
       new SerenityBDDReporter(),
     ],
@@ -177,9 +179,7 @@ export const config: WebdriverIOConfig = {
   // see: https://serenity-js.org/modules/cucumber/class/src/cli/CucumberConfig.ts~CucumberConfig.html
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
-    require: [
-      './src/**/*.ts',
-    ],
+    require: ['./src/**/*.ts'],
     // <string[]> (type[:path]) specify native Cucumber.js output format, if needed. Optionally supply PATH to redirect formatter output (repeatable)
     format: [],
     // <string> (name) specify the profile to use
